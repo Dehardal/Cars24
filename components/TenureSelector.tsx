@@ -10,7 +10,7 @@ interface TenureSelectorComponentProps {
   onAction: (action: SduiAction) => void;
 }
 
-export default function TenureSelector({ props, actions, onAction }: TenureSelectorComponentProps) {
+const TenureSelector = React.memo(({ props, actions, onAction }: TenureSelectorComponentProps) => {
   const selectedMonths = props.selectedMonths ?? 36;
   const emiText = props.emiValue ?? '₹12,450';
 
@@ -127,3 +127,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
+
+export default TenureSelector;

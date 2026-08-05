@@ -10,7 +10,7 @@ interface SearchHeaderComponentProps {
   onAction: (action: SduiAction) => void;
 }
 
-export default function SearchHeader({ props, actions, onAction }: SearchHeaderComponentProps) {
+const SearchHeader = React.memo(({ props, actions, onAction }: SearchHeaderComponentProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
@@ -33,7 +33,9 @@ export default function SearchHeader({ props, actions, onAction }: SearchHeaderC
       </Pressable>
     </View>
   );
-}
+});
+
+export default SearchHeader;
 
 const styles = StyleSheet.create({
   container: {

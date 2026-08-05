@@ -17,3 +17,6 @@ yarn-error.log*
 # OS files
 .DS_Store
 Thumbs.db
+
+# Video script (local only)
+VIDEO_SCRIPT.md

@@ -10,7 +10,7 @@ interface CarouselComponentProps {
   onAction: (action: SduiAction) => void;
 }
 
-export default function Carousel({ props, onAction }: CarouselComponentProps) {
+const Carousel = React.memo(({ props, onAction }: CarouselComponentProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
 
@@ -124,3 +124,5 @@ const styles = StyleSheet.create({
     width: 12,
   },
 });
+
+export default Carousel;

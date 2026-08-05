@@ -10,7 +10,7 @@ interface HorizontalRailComponentProps {
   onAction: (action: SduiAction) => void;
 }
 
-export default function HorizontalRail({ props, actions, onAction }: HorizontalRailComponentProps) {
+const HorizontalRail = React.memo(({ props, actions, onAction }: HorizontalRailComponentProps) => {
   const handleItemPress = (item: CarCardItem) => {
     if (actions?.onItemTap) {
       const action = actions.onItemTap;
@@ -39,10 +39,17 @@ export default function HorizontalRail({ props, actions, onAction }: HorizontalR
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.carId}
         contentContainerStyle={styles.listContainer}
+        initialNumToRender={3}
+        maxToRenderPerBatch={3}
+        windowSize={5}
+        getItemLayout={(_, index) => ({
+          length: 180,
+          offset: (180 + 12) * index,
+          index,
+        })}
         renderItem={({ item }) => (
           <Pressable style={styles.card} onPress={() => handleItemPress(item)}>
             <View style={styles.imageWrapper}>
-              {/* Fallback box if imageUrl is missing */}
               <Image source={{ uri: item.imageUrl }} style={styles.image} />
               <View style={styles.tag}>
                 <Text style={styles.tagText}>{item.km || 'Petrol'}</Text>
@@ -62,7 +69,9 @@ export default function HorizontalRail({ props, actions, onAction }: HorizontalR
       />
     </View>
   );
-}
+});
+
+export default HorizontalRail;
 
 const styles = StyleSheet.create({
   container: {

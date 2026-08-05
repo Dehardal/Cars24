@@ -10,7 +10,7 @@ interface ChipGroupComponentProps {
   onAction: (action: SduiAction) => void;
 }
 
-export default function ChipGroup({ props, actions, onAction }: ChipGroupComponentProps) {
+const ChipGroup = React.memo(({ props, actions, onAction }: ChipGroupComponentProps) => {
   return (
     <ScrollView
       horizontal
@@ -70,3 +70,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
+
+export default ChipGroup;
