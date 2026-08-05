@@ -1,0 +1,77 @@
+{
+  "screenId": "cars24_home",
+  "schemaVersion": "1.0",
+  "minAppVersion": 1,
+  "state": {
+    "selected_category": "hatchback",
+    "tenure_months": 24
+  },
+  "sections": [
+    {
+      "id": "search_header",
+      "type": "search_header",
+      "minAppVersion": 1,
+      "props": { "placeholder": "Search by brand, model or budget", "location": "Delhi" },
+      "actions": { "onTap": { "type": "navigate", "target": "search_screen" } }
+    },
+    {
+      "id": "hero_banner_carousel",
+      "type": "carousel",
+      "minAppVersion": 1,
+      "props": {
+        "autoScrollMs": 4000,
+        "items": [
+          { "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuC3Be6njH2Mp-7_rjingXEYQUGofpqTvQrst7xanUJKb2DAD5B-WioAK0nTgbwavSM3EjAH8gDaLwIgT_F0AARdIBJRo2yLUwhL8dNu8bov2-nnrPCWIxZ0ZC1gG60ic2Yy2UnPr3xNjNy13rLmWQdv515vBlamtMp0tQCm6NOgVBU4bVzwdwI0LphtRNnVjl0vmTvwJe6wQnDnfciBwACsjdZS4L3jUaVFA_RWAnp1LVyS4sX9ObWLbg",
+            "actions": { "onTap": { "type": "navigate", "target": "offer_details", "params": { "offerId": "XYZ" } } } }
+        ]
+      }
+    },
+    {
+      "id": "category_chips",
+      "type": "chip_group",
+      "minAppVersion": 1,
+      "props": {
+        "selectedId": "hatchback",
+        "options": [ { "id": "hatchback", "label": "Hatchback" }, { "id": "suv", "label": "SUV" }, { "id": "sedan", "label": "Sedan" } ]
+      },
+      "actions": {
+        "onSelect": { "type": "update_state", "stateKey": "selected_category", "then": { "type": "refetch_section", "sectionId": "car_rail" } }
+      }
+    },
+    {
+      "id": "car_rail",
+      "type": "horizontal_rail",
+      "minAppVersion": 1,
+      "props": {
+        "title": "Recommended for you",
+        "itemType": "car_card",
+        "items": [
+          { "carId": "swift-2021", "title": "2021 Maruti Swift", "price": "₹6.45L", "km": "15,000 km", "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuD5OB2Ngr4nztYzyHD3ULJfBnyFXwAWGteRupgorZGqBZLubcsWnknHrBZWv-Lma1-osmfQwJYk5HQCKJ_I6XecOjVwG8nBef4RO4CT9P2rzCqNiiulbFGwtJJhgcaBykvSJvNKC6IyR6bmOA9VczVzbQu6Gf-6HrEGBLEbAHVX5xWQOFkPN1gJu-hWkGNWyHeZat8iuc5F4OgJA2ROJnxffErWJz3mkbrmntE45cf3_lTivsW6ur27Hw" }
+        ]
+      },
+      "actions": { "onItemTap": { "type": "navigate", "target": "car_details", "paramsFromItem": ["carId"] } }
+    },
+    {
+      "id": "emi_calculator",
+      "type": "tenure_selector",
+      "minAppVersion": 1,
+      "props": { "options": [12, 24, 36, 48], "selectedBind": "state.tenure_months", "displayBind": "computed.emi" },
+      "actions": { "onSelect": { "type": "update_state", "stateKey": "tenure_months", "recompute": ["emi"] } },
+      "computed": { "emi": { "formula": "principal_rate_tenure_amortization", "inputs": ["principal", "rate", "state.tenure_months"] } }
+    },
+    {
+      "id": "value_prop_strip",
+      "type": "icon_text_row",
+      "minAppVersion": 1,
+      "props": { "items": [ { "icon": "shield", "label": "140 point inspection" }, { "icon": "refresh", "label": "5 day money back" } ] }
+    },
+    {
+      "id": "footer_cta",
+      "type": "cta_banner",
+      "minAppVersion": 1,
+      "props": { "title": "Sell your car", "ctaLabel": "Get Price" },
+      "actions": { "onTap": { "type": "open_sheet", "sheetId": "sell_car_sheet" } }
+    }
+  ],
+  "fallback": { "unknownComponent": { "render": "skip_with_log" } }
+}

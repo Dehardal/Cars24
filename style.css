@@ -1,0 +1,301 @@
+/* Cars24 Visual Design System (Velocity Trust Theme) Core Stylesheet */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+:root {
+  /* Design Tokens */
+  --primary: #EF5F3C;
+  --primary-container: #cd4726;
+  --secondary: #2D3E50;
+  --secondary-container: #cfe1f8;
+  --tertiary: #00B67A;
+  --background: #f8f9fb;
+  --surface: #ffffff;
+  --surface-container-low: #f2f4f6;
+  --surface-container: #edeef0;
+  --surface-container-high: #e7e8ea;
+  --surface-container-highest: #e1e2e4;
+  --on-surface: #191c1e;
+  --on-surface-variant: #59413b;
+  --outline: #8d716a;
+  
+  /* Fonts */
+  --font-family: 'Inter', sans-serif;
+  
+  /* Dimensions & Grid */
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-sm: 4px;
+  --spacing-base: 4px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family);
+  background: #111418;
+  color: #e2e8f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Shadows */
+.shadow-level-1 {
+  box-shadow: 0px 4px 12px rgba(45, 62, 80, 0.08);
+}
+.shadow-level-2 {
+  box-shadow: 0px -4px 16px rgba(45, 62, 80, 0.12);
+}
+
+/* Desktop Presentation Layout */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.design-system-panel {
+  flex: 1;
+  max-width: 480px;
+  background: #181d24;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 32px;
+  display: flex;
+  flex-col: column;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+}
+
+.device-preview-panel {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #1e2530 0%, #0d1117 100%);
+  padding: 40px;
+  position: relative;
+}
+
+/* Phone Mockup Frame */
+.phone-mockup {
+  width: 390px;
+  height: 844px;
+  background: var(--background);
+  border: 12px solid #000;
+  border-radius: 48px;
+  box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.5), 
+              0 0 0 4px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Notch / Island */
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 30px;
+  background: #000;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.phone-notch::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: #111;
+  border-radius: 50%;
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+}
+
+.phone-notch::after {
+  content: '';
+  width: 40px;
+  height: 4px;
+  background: #222;
+  border-radius: 2px;
+}
+
+/* Viewport content area inside the phone */
+.phone-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Dynamic Views and Transitions */
+.view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  padding-bottom: 96px; /* Space for bottom nav bar */
+  background: var(--background);
+  color: var(--on-surface);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(20px);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.view.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+  z-index: 10;
+}
+
+/* Bottom Sheet Overlay */
+.bottom-sheet-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(45, 62, 80, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.bottom-sheet-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0px -8px 24px rgba(45, 62, 80, 0.15);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+  max-height: 85%;
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+
+.bottom-sheet-overlay.active .bottom-sheet {
+  transform: translateY(0);
+}
+
+/* Colors palette styles */
+.color-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Micro-animations and effects */
+.hover-scale {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+.hover-scale:active {
+  transform: scale(0.98);
+}
+
+.pulse-success {
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 182, 122, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(0, 182, 122, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 182, 122, 0);
+  }
+}
+
+/* Mobile responsive constraints (when viewed directly on mobile device) */
+@media (max-width: 800px) {
+  .design-system-panel {
+    display: none;
+  }
+  .device-preview-panel {
+    padding: 0;
+    background: var(--background);
+  }
+  .phone-mockup {
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .phone-notch {
+    display: none;
+  }
+}

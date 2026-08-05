@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SduiScreen",
+  "type": "object",
+  "properties": {
+    "screenId": { "type": "string" },
+    "schemaVersion": { "type": "string" },
+    "minAppVersion": { "type": "integer" },
+    "state": { "type": "object" },
+    "sections": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/SduiSection" }
+    },
+    "fallback": { "type": "object" }
+  },
+  "required": ["screenId", "schemaVersion", "sections"],
+  "definitions": {
+    "SduiSection": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "minAppVersion": { "type": "integer" },
+        "props": { "type": "object" },
+        "actions": { "type": "object" },
+        "computed": { "type": "object" }
+      },
+      "required": ["id", "type", "props"]
+    }
+  }
+}

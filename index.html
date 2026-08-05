@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cars24 Visual Design System Showcase</title>
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="./style.css">
+  
+  <!-- Tailwind Configuration matching Stitch Project -->
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#f8f9fb",
+            "on-secondary-container": "#536478",
+            "error": "#ba1a1a",
+            "on-secondary-fixed-variant": "#37485b",
+            "surface-bright": "#f8f9fb",
+            "surface-container-low": "#f2f4f6",
+            "primary-container": "#cd4726",
+            "on-background": "#191c1e",
+            "on-tertiary": "#ffffff",
+            "secondary-fixed": "#d2e4fb",
+            "secondary-container": "#cfe1f8",
+            "primary": "#ab2f0f",
+            "on-error": "#ffffff",
+            "primary-fixed": "#ffdad2",
+            "on-primary-fixed-variant": "#8a1c00",
+            "outline-variant": "#e1bfb7",
+            "surface-container-high": "#e7e8ea",
+            "on-surface": "#191c1e",
+            "tertiary-fixed": "#6efcb9",
+            "error-container": "#ffdad6",
+            "on-primary-container": "#fffbff",
+            "outline": "#8d716a",
+            "surface-container": "#edeef0",
+            "surface-variant": "#e1e2e4",
+            "primary-fixed-dim": "#ffb4a2",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#0a1d2d",
+            "on-primary": "#ffffff",
+            "tertiary-container": "#008558",
+            "on-primary-fixed": "#3c0700",
+            "inverse-primary": "#ffb4a2",
+            "secondary": "#4f6073",
+            "on-secondary": "#ffffff",
+            "surface-dim": "#d9dadc",
+            "on-surface-variant": "#59413b",
+            "on-tertiary-fixed": "#002113",
+            "inverse-surface": "#2e3132",
+            "tertiary-fixed-dim": "#4edf9f",
+            "on-tertiary-container": "#f6fff6",
+            "surface-tint": "#ae3111",
+            "surface-container-highest": "#e1e2e4",
+            "tertiary": "#006a45",
+            "on-error-container": "#93000a",
+            "inverse-on-surface": "#f0f1f3",
+            "secondary-fixed-dim": "#b6c8df",
+            "surface": "#f8f9fb",
+            "on-tertiary-fixed-variant": "#005234",
+            "brand-orange": "#EF5F3C",
+            "brand-navy": "#2D3E50"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "lg": "24px",
+            "margin-mobile": "16px",
+            "md": "16px",
+            "xs": "4px",
+            "base": "4px",
+            "gutter": "12px",
+            "sm": "8px",
+            "xl": "32px"
+          },
+          "fontFamily": {
+            "caption": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "body-md": ["Inter"],
+            "display-price-mobile": ["Inter"],
+            "label-bold": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "display-price": ["Inter"]
+          },
+          "fontSize": {
+            "caption": ["10px", {"lineHeight": "14px", "fontWeight": "500"}],
+            "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+            "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "display-price-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "800"}],
+            "label-bold": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "display-price": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT PANEL: Design System & Walkthrough -->
+    <aside class="design-system-panel">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <span class="bg-[#EF5F3C]/20 text-[#EF5F3C] px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider">Design System</span>
+          <span class="text-xs text-gray-400">v1.0.0</span>
+        </div>
+        <h1 class="text-2xl font-black text-white tracking-tight">Velocity Trust</h1>
+        <p class="text-sm text-gray-400 mt-2">
+          Cars24's custom visual system tailored for the Indian secondary automotive market. Melds retail marketplace dynamics with the trust of high-value fintech platforms.
+        </p>
+      </div>
+
+      <!-- Color Tokens Section -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Brand Colors</h2>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="color-badge">
+            <div class="color-swatch bg-[#EF5F3C]"></div>
+            <div>
+              <div class="font-bold text-white">#EF5F3C</div>
+              <div class="text-[11px] text-gray-400">Primary Orange</div>
+            </div>
+          </div>
+          <div class="color-badge">
+            <div class="color-swatch bg-[#2D3E50]"></div>
+            <div>
+              <div class="font-bold text-white">#2D3E50</div>
+              <div class="text-[11px] text-gray-400">Secondary Navy</div>
+            </div>
+          </div>
+          <div class="color-badge">
+            <div class="color-swatch bg-[#00B67A]"></div>
+            <div>
+              <div class="font-bold text-white">#00B67A</div>
+              <div class="text-[11px] text-gray-400">Tertiary Green</div>
+            </div>
+          </div>
+          <div class="color-badge">
+            <div class="color-swatch bg-[#F8F9FB]"></div>
+            <div>
+              <div class="font-bold text-gray-800">#F8F9FB</div>
+              <div class="text-[11px] text-gray-400">Neutral Gray</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Typography Tokens -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Core Typography</h2>
+        <div class="flex flex-col gap-2.5 bg-black/20 p-4 rounded-xl border border-white/5 text-sm">
+          <div class="flex justify-between items-center border-b border-white/5 pb-2">
+            <span class="text-gray-400 text-xs font-mono">display-price</span>
+            <span class="font-extrabold text-white text-[16px] tracking-tight">₹15.80 Lakh</span>
+          </div>
+          <div class="flex justify-between items-center border-b border-white/5 pb-2">
+            <span class="text-gray-400 text-xs font-mono">headline-md</span>
+            <span class="font-bold text-white text-sm">2021 Hyundai Creta</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-gray-400 text-xs font-mono">body-sm</span>
+            <span class="text-gray-300 text-xs">EMI starts at ₹12,450/mo</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Server-Driven UI (SDUI) Controls -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Server-Driven UI (SDUI)</h2>
+        <div class="bg-black/25 p-4 rounded-xl border border-white/5 flex flex-col gap-2">
+          <div class="flex justify-between items-center">
+            <span class="text-xs text-gray-300 font-bold">SDUI Mode (sdui_home.json)</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="sdui-mode-toggle" class="sr-only peer" onchange="toggleSduiMode(this)">
+              <div class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#EF5F3C]"></div>
+            </label>
+          </div>
+          <p class="text-[11px] text-gray-400 mt-1 leading-normal">
+            When enabled, the Home screen's layouts, items, behaviors, and properties are dynamically loaded and rendered directly from the <code>sdui_home.json</code> schema definition.
+          </p>
+        </div>
+      </section>
+
+      <!-- Interactive Walkthrough Guidelines -->
+      <section class="flex flex-col gap-3">
+        <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Prototype User Guide</h2>
+        <div class="flex flex-col gap-3 text-xs text-gray-300">
+          <div class="flex gap-3">
+            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center font-bold">1</div>
+            <p><strong>EMI tenure selection</strong> on the Home view dynamically recalculates mock installments in the custom planner card.</p>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center font-bold">2</div>
+            <p><strong>Filtering by vehicle categories</strong> (Hatchback, SUV, Sedan) shifts listings dynamically using the system filters.</p>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center font-bold">3</div>
+            <p>Clicking <strong>"Sell"</strong> or <strong>"Get an Offer"</strong> pops up the bottom sheet modal with active Indian registration number validation.</p>
+          </div>
+          <div class="flex gap-3">
+            <div class="flex-shrink-0 w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center font-bold">4</div>
+            <p>Select any car card to open the <strong>Car Details Modal</strong>, displaying specifications, verified trust badges, and book a mock test drive.</p>
+          </div>
+        </div>
+      </section>
+      
+      <div class="mt-auto pt-4 border-t border-white/10 text-center">
+        <span class="text-[11px] text-gray-500">Cars24 Visual Design System &bull; Bangalore Portfolio</span>
+      </div>
+    </aside>
+
+    <!-- RIGHT PANEL: Mobile Device Simulator -->
+    <main class="device-preview-panel">
+      <div class="phone-mockup">
+        
+        <!-- Status Bar notch details -->
+        <div class="phone-notch"></div>
+        
+        <!-- Viewport Container -->
+        <div class="phone-viewport">
+          
+          <!-- Persistent Top App Bar -->
+          <header class="bg-white border-b border-surface-container-high h-16 w-full flex items-center justify-between px-4 z-40">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-[#ab2f0f] cursor-pointer hover:opacity-80 active:scale-95 transition-transform" data-icon="menu">menu</span>
+              <!-- Location Chip -->
+              <div class="flex items-center gap-1 bg-[#f2f4f6] px-2.5 py-1 rounded-full">
+                <span class="material-symbols-outlined text-[#2D3E50] text-[15px]" data-icon="location_on">location_on</span>
+                <span class="text-xs font-semibold text-[#2D3E50]">Bangalore</span>
+                <span class="material-symbols-outlined text-[#2D3E50] text-[14px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+              </div>
+            </div>
+            <div class="text-lg font-extrabold text-[#ab2f0f] tracking-tight">Cars24</div>
+            <span class="material-symbols-outlined text-[#ab2f0f] cursor-pointer hover:opacity-80 active:scale-95 transition-transform" data-icon="search" onclick="switchView('listings')">search</span>
+          </header>
+
+          <!-- ==================== VIEW: HOME ==================== -->
+          <div id="view-home" class="view active pt-2 px-4 gap-4">
+            
+            <!-- Search Bar -->
+            <div class="relative mt-2">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" data-icon="search">search</span>
+              <input id="search-input" class="w-full bg-[#f8f9fb] border border-gray-300 rounded-xl py-3 pl-10 pr-4 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#EF5F3C] focus:ring-1 focus:ring-[#EF5F3C] transition-all" placeholder="Search by brand, model, or body type" type="text" />
+            </div>
+
+            <!-- Promo Carousel -->
+            <section class="w-full overflow-x-auto hide-scrollbar snap-x snap-mandatory rounded-xl flex gap-3 pb-1">
+              <!-- Banner 1 -->
+              <div class="snap-center shrink-0 w-[82vw] h-32 rounded-xl relative overflow-hidden shadow-sm">
+                <img class="object-cover w-full h-full absolute inset-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3Be6njH2Mp-7_rjingXEYQUGofpqTvQrst7xanUJKb2DAD5B-WioAK0nTgbwavSM3EjAH8gDaLwIgT_F0AARdIBJRo2yLUwhL8dNu8bov2-nnrPCWIxZ0ZC1gG60ic2Yy2UnPr3xNjNy13rLmWQdv515vBlamtMp0tQCm6NOgVBU4bVzwdwI0LphtRNnVjl0vmTvwJe6wQnDnfciBwACsjdZS4L3jUaVFA_RWAnp1LVyS4sX9ObWLbg" alt="Exchange Bonus Banner" />
+                <div class="absolute inset-0 bg-gradient-to-r from-[#2D3E50]/95 to-transparent p-4 flex flex-col justify-center">
+                  <span class="text-sm font-bold text-white">Exchange Bonus</span>
+                  <span class="text-xs text-white/80 mt-1">Get up to ₹50,000 extra value</span>
+                </div>
+              </div>
+              <!-- Banner 2 -->
+              <div class="snap-center shrink-0 w-[82vw] h-32 rounded-xl relative overflow-hidden shadow-sm">
+                <img class="object-cover w-full h-full absolute inset-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd2_FvObtq6L_CoT4pwP8TC9bZBlKhpiMLzVrMIdza7zBz1ujh4gGJGBgtc8tQgdCEynVnnn1N3JIQApXyBORqC_KM9CUacmr_NuzsF1Y3QRUcFfd0NGTk0jUSRhLdXAcJ4HiKEQwnrcCZVJhqDvJn-7qO9mCCSIUedYjnbS9RV8q781geTK3h-FZqcJ0-VM6OAeUSDGWItCoIGs-6QlSDsWntg_gvEyEG8YZkNgWmA87BMTv2YKFDjQ" alt="Zero Downpayment Banner" />
+                <div class="absolute inset-0 bg-gradient-to-r from-[#2D3E50]/95 to-transparent p-4 flex flex-col justify-center">
+                  <span class="text-sm font-bold text-white">Zero Downpayment</span>
+                  <span class="text-xs text-white/80 mt-1">Drive home today with instant approvals.</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- Category Selector Pills -->
+            <section class="overflow-x-auto hide-scrollbar -mx-4 px-4 flex gap-2">
+              <button data-category class="px-4 py-2 rounded-full border border-primary bg-primary/10 font-body-sm text-body-sm text-primary font-medium whitespace-nowrap transition-colors" onclick="selectCategory('Hatchback', this)">Hatchback</button>
+              <button data-category class="px-4 py-2 rounded-full border border-gray-300 bg-surface font-body-sm text-body-sm text-secondary whitespace-nowrap hover:bg-surface-container-low transition-colors" onclick="selectCategory('SUV', this)">SUV</button>
+              <button data-category class="px-4 py-2 rounded-full border border-gray-300 bg-surface font-body-sm text-body-sm text-secondary whitespace-nowrap hover:bg-surface-container-low transition-colors" onclick="selectCategory('Sedan', this)">Sedan</button>
+              <button data-category class="px-4 py-2 rounded-full border border-gray-300 bg-surface font-body-sm text-body-sm text-secondary whitespace-nowrap hover:bg-surface-container-low transition-colors" onclick="selectCategory('Automatic', this)">Automatic</button>
+            </section>
+
+            <!-- Recommended Rail -->
+            <section>
+              <div class="flex justify-between items-center mb-2.5">
+                <h2 class="text-sm font-bold text-[#2D3E50]">Recommended for you</h2>
+                <span class="text-xs text-primary font-bold cursor-pointer hover:underline" onclick="switchView('listings')">See All</span>
+              </div>
+              <div id="recommended-container" class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+                <!-- Recommended cards injected by app.js -->
+              </div>
+            </section>
+
+            <!-- Interactive EMI Selector Card -->
+            <section class="bg-white p-4 rounded-xl shadow-level-1 border border-surface-container-high">
+              <div class="flex justify-between items-end mb-3">
+                <div>
+                  <span class="text-xs text-gray-500 font-bold uppercase tracking-wider">EMI Planner</span>
+                  <div class="text-sm font-medium text-gray-800 mt-0.5">Customize Tenure</div>
+                </div>
+                <span class="text-lg font-black text-secondary" id="live-emi-display">₹12,450<span class="text-xs font-normal text-gray-500">/mo</span></span>
+              </div>
+              <div class="flex justify-between gap-1.5">
+                <button data-emi-btn class="flex-1 py-1.5 rounded-lg border border-gray-300 bg-surface font-body-sm text-body-sm text-secondary transition-colors hover:bg-surface-container-low" onclick="updateEMI(this, '₹24,500')">12m</button>
+                <button data-emi-btn class="flex-1 py-1.5 rounded-lg border border-gray-300 bg-surface font-body-sm text-body-sm text-secondary transition-colors hover:bg-surface-container-low" onclick="updateEMI(this, '₹16,200')">24m</button>
+                <button data-emi-btn class="flex-1 py-1.5 rounded-lg border border-primary bg-primary/10 font-body-sm text-body-sm text-primary transition-colors" onclick="updateEMI(this, '₹12,450')">36m</button>
+                <button data-emi-btn class="flex-1 py-1.5 rounded-lg border border-gray-300 bg-surface font-body-sm text-body-sm text-secondary transition-colors hover:bg-surface-container-low" onclick="updateEMI(this, '₹9,800')">48m</button>
+              </div>
+            </section>
+
+            <!-- Value Proposition Row -->
+            <section class="flex justify-between items-center py-3 px-2 bg-surface-container-low rounded-xl">
+              <div class="flex flex-col items-center gap-1 flex-1">
+                <span class="material-symbols-outlined text-primary text-[20px]" data-icon="replay">replay</span>
+                <span class="text-[10px] text-secondary font-semibold text-center leading-tight">7-Day<br/>Return</span>
+              </div>
+              <div class="w-px h-8 bg-gray-300"></div>
+              <div class="flex flex-col items-center gap-1 flex-1">
+                <span class="material-symbols-outlined text-primary text-[20px]" data-icon="fact_check">fact_check</span>
+                <span class="text-[10px] text-secondary font-semibold text-center leading-tight">140-Point<br/>Check</span>
+              </div>
+              <div class="w-px h-8 bg-gray-300"></div>
+              <div class="flex flex-col items-center gap-1 flex-1">
+                <span class="material-symbols-outlined text-primary text-[20px]" data-icon="payments">payments</span>
+                <span class="text-[10px] text-secondary font-semibold text-center leading-tight">Instant<br/>Financing</span>
+              </div>
+            </section>
+
+            <!-- Sell CTA Card -->
+            <section class="bg-secondary text-white rounded-xl p-4 flex justify-between items-center relative overflow-hidden shadow-sm">
+              <div class="absolute -right-8 -top-8 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
+              <div class="z-10">
+                <h3 class="text-sm font-bold">Sell your car</h3>
+                <p class="text-[11px] text-white/80 mt-0.5">Get best price instantly</p>
+              </div>
+              <button class="z-10 bg-primary hover:bg-primary-container text-white px-4 py-2 rounded-lg text-xs font-bold transition-all hover:scale-105 active:scale-95 shadow-md" data-trigger-sell>
+                Get an Offer
+              </button>
+            </section>
+          </div>
+
+          <!-- ==================== VIEW: LISTINGS ==================== -->
+          <div id="view-listings" class="view pt-2 px-4 gap-4">
+            
+            <!-- Filters Bar (Sticky mockup within listings page) -->
+            <div class="flex flex-col gap-2 mb-1">
+              <!-- Search listings bar -->
+              <div class="relative">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" data-icon="search">search</span>
+                <input id="search-listings-input" class="w-full bg-[#f8f9fb] border border-gray-300 rounded-xl py-2 pl-10 pr-4 text-xs text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#EF5F3C]" placeholder="Search brand or model" type="text" />
+              </div>
+              <!-- Mini Horizontal Filters scroll -->
+              <div class="flex gap-1.5 overflow-x-auto hide-scrollbar py-0.5">
+                <button onclick="clearFilters()" class="flex-shrink-0 flex items-center gap-1 px-2.5 py-1 border border-gray-300 bg-white rounded-full text-[11px] font-bold text-gray-600 hover:bg-gray-50">
+                  <span>Reset</span>
+                  <span class="material-symbols-outlined text-[12px]">refresh</span>
+                </button>
+                <button class="flex-shrink-0 flex items-center gap-1 px-3 py-1 border border-primary bg-primary/10 rounded-full text-[11px] font-bold text-primary">
+                  <span>Budget</span>
+                  <span class="material-symbols-outlined text-[13px]">expand_more</span>
+                </button>
+                <button class="flex-shrink-0 px-3 py-1 border border-gray-300 bg-white rounded-full text-[11px] font-bold text-gray-600">Fuel</button>
+                <button class="flex-shrink-0 px-3 py-1 border border-gray-300 bg-white rounded-full text-[11px] font-bold text-gray-600">Trans</button>
+                <button class="flex-shrink-0 px-3 py-1 border border-gray-300 bg-white rounded-full text-[11px] font-bold text-gray-600">KM</button>
+              </div>
+            </div>
+
+            <!-- Listings Header -->
+            <div class="flex justify-between items-center">
+              <h2 class="text-sm font-bold text-secondary">Used Cars in Bangalore</h2>
+              <button class="flex items-center gap-1 text-secondary text-xs font-bold hover:opacity-80">
+                <span class="material-symbols-outlined text-[16px]">sort</span> Sort
+              </button>
+            </div>
+
+            <!-- Cars Cards List -->
+            <div id="listings-container" class="flex flex-col gap-4 pb-4">
+              <!-- Listings dynamically filled by app.js -->
+            </div>
+          </div>
+
+          <!-- ==================== VIEW: FINANCING (FALLBACK) ==================== -->
+          <div id="view-financing" class="view pt-2 px-4 gap-4 justify-center items-center">
+            <div class="text-center p-6 flex flex-col items-center gap-3">
+              <div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center border border-dashed border-gray-300 text-gray-400">
+                <span class="material-symbols-outlined text-[32px]">payments</span>
+              </div>
+              <h3 class="text-sm font-bold text-secondary">Easy Financing Options</h3>
+              <p class="text-xs text-gray-500 max-w-[280px]">Instant paperless loan approvals from top banking partners. This section is being updated with our newest calculators.</p>
+              <button class="mt-4 bg-primary text-white px-5 py-2.5 rounded-lg text-xs font-bold shadow-sm" onclick="switchView('home')">Back to Home</button>
+            </div>
+          </div>
+
+          <!-- ==================== VIEW: ACCOUNT (FALLBACK) ==================== -->
+          <div id="view-account" class="view pt-2 px-4 gap-4 justify-center items-center">
+            <div class="text-center p-6 flex flex-col items-center gap-3">
+              <div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center border border-dashed border-gray-300 text-gray-400">
+                <span class="material-symbols-outlined text-[32px]">person</span>
+              </div>
+              <h3 class="text-sm font-bold text-secondary">My Account Portal</h3>
+              <p class="text-xs text-gray-500 max-w-[280px]">Access active bookings, loan status, or sell inquiries. Upgrade or log in via OTP.</p>
+              <button class="mt-4 bg-primary text-white px-5 py-2.5 rounded-lg text-xs font-bold shadow-sm" onclick="switchView('home')">Back to Home</button>
+            </div>
+          </div>
+
+          <!-- ==================== VIEW: CAR DETAILS ==================== -->
+          <div id="view-car-details" class="view pt-0 px-0 gap-0">
+            <!-- Content will be injected dynamically into openCarDetail modal -->
+            <div id="car-detail-content" class="w-full h-full flex flex-col"></div>
+          </div>
+
+          <!-- ==================== COMPONENT: SELL BOTTOM SHEET ==================== -->
+          <div id="sell-overlay" class="bottom-sheet-overlay">
+            <div class="bottom-sheet">
+              <!-- Drag/Indicator line -->
+              <div class="w-full flex justify-center pt-3 pb-2">
+                <div class="w-12 h-1 bg-gray-300 rounded-full"></div>
+              </div>
+              <!-- Close button -->
+              <button id="sell-close" class="absolute top-3 right-3 p-1.5 rounded-full hover:bg-gray-100 text-gray-500 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+              
+              <div class="px-5 pt-2 flex flex-col gap-4">
+                <div class="text-center">
+                  <h2 class="text-lg font-bold text-secondary">Sell Your Car in Minutes</h2>
+                  <p class="text-xs text-gray-500 mt-0.5">Enter registration number to get instant valuation</p>
+                </div>
+                
+                <div class="flex flex-col gap-1.5 mt-2">
+                  <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1" for="carNumber">Car Registration Number</label>
+                  <div class="relative">
+                    <input autocomplete="off" class="w-full h-14 pl-12 pr-4 rounded-xl border border-gray-300 bg-[#f8f9fb] text-gray-800 font-bold uppercase placeholder:text-gray-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm" id="carNumber" placeholder="KA 03 MS 1234" type="text" />
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" data-icon="directions_car">directions_car</span>
+                  </div>
+                </div>
+
+                <button id="get-instant-price" class="w-full h-13 mt-2 bg-primary hover:bg-[#d95536] text-white font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
+                  Get Instant Price
+                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </button>
+                
+                <button class="text-xs text-primary font-semibold underline underline-offset-2 hover:opacity-85 text-center mt-1" onclick="alert('Alternative listing flows are loading. Please check back later.')">
+                  Don't know your car number?
+                </button>
+
+                <!-- Sell Badges -->
+                <div class="grid grid-cols-3 gap-2 border-t border-gray-150 pt-4 mt-2">
+                  <div class="flex flex-col items-center gap-1">
+                    <div class="w-8 h-8 rounded-full bg-[#cfe1f8]/40 flex items-center justify-center text-primary">
+                      <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">speed</span>
+                    </div>
+                    <span class="text-[9px] font-semibold text-secondary text-center">Instant Quote</span>
+                  </div>
+                  <div class="flex flex-col items-center gap-1">
+                    <div class="w-8 h-8 rounded-full bg-[#cfe1f8]/40 flex items-center justify-center text-primary">
+                      <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                    </div>
+                    <span class="text-[9px] font-semibold text-secondary text-center">Secure Process</span>
+                  </div>
+                  <div class="flex flex-col items-center gap-1">
+                    <div class="w-8 h-8 rounded-full bg-[#cfe1f8]/40 flex items-center justify-center text-primary">
+                      <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+                    </div>
+                    <span class="text-[9px] font-semibold text-secondary text-center">Same Day Pay</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================== COMPONENT: CAR DETAIL MODAL ==================== -->
+          <div id="car-detail-modal" class="absolute inset-0 bg-white z-50 overflow-y-auto transform translate-x-full transition-transform duration-300 [&.active]:translate-x-0">
+            <!-- Content dynamically generated inside openCarDetail -->
+            <div id="car-detail-content" class="w-full min-h-full bg-[#f8f9fb] flex flex-col"></div>
+          </div>
+
+          <!-- Persistent Bottom Navigation Bar -->
+          <nav class="absolute bottom-0 w-full z-45 bg-white border-t border-surface-container-high shadow-level-2 h-20 flex justify-around items-center px-4 pb-2">
+            <!-- Buy -->
+            <div data-view-btn="home" class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim hover:opacity-80 active:scale-95 transition-transform cursor-pointer">
+              <span class="material-symbols-outlined" data-icon="directions_car" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+              <span class="text-[10px] font-bold mt-1">Buy</span>
+            </div>
+            <!-- Sell -->
+            <div data-view-btn="sell" class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:opacity-80 active:scale-95 transition-transform cursor-pointer">
+              <span class="material-symbols-outlined" data-icon="sell">sell</span>
+              <span class="text-[10px] font-bold mt-1">Sell</span>
+            </div>
+            <!-- Financing -->
+            <div data-view-btn="financing" class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:opacity-80 active:scale-95 transition-transform cursor-pointer">
+              <span class="material-symbols-outlined" data-icon="payments">payments</span>
+              <span class="text-[10px] font-bold mt-1">Financing</span>
+            </div>
+            <!-- Account -->
+            <div data-view-btn="account" class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:opacity-80 active:scale-95 transition-transform cursor-pointer">
+              <span class="material-symbols-outlined" data-icon="person">person</span>
+              <span class="text-[10px] font-bold mt-1">Account</span>
+            </div>
+          </nav>
+          
+        </div>
+      </div>
+    </main>
+    
+  </div>
+
+  <!-- JavaScript Entry Point -->
+  <script src="./app.js"></script>
+</body>
+</html>
