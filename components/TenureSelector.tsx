@@ -53,7 +53,7 @@ const TenureSelector = React.memo(({ props, actions, onAction }: TenureSelectorC
       </View>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

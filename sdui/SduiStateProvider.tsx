@@ -98,14 +98,14 @@ export function SduiStateProvider({ children }: { children: React.ReactNode }) {
       if (!prev) return null;
       
       const railSection = prev.sections.find(sec => sec.id === 'car_rail');
-      if (railSection && JSON.stringify(railSection.props.items) === JSON.stringify(nextItems)) {
+      if (railSection && railSection.type === 'horizontal_rail' && JSON.stringify(railSection.props.items) === JSON.stringify(nextItems)) {
         return prev;
       }
 
       return {
         ...prev,
         sections: prev.sections.map((sec: SduiSection) => {
-          if (sec.id === 'car_rail') {
+          if (sec.id === 'car_rail' && sec.type === 'horizontal_rail') {
             return {
               ...sec,
               props: {

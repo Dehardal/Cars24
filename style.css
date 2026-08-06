@@ -91,7 +91,6 @@ body {
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   padding: 32px;
   display: flex;
-  flex-col: column;
   flex-direction: column;
   gap: 24px;
   overflow-y: auto;

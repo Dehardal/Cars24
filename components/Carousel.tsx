@@ -68,7 +68,7 @@ const Carousel = React.memo(({ props, onAction }: CarouselComponentProps) => {
       </View>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -92,7 +92,10 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: 'absolute',
-    inset: 0,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
     backgroundColor: 'rgba(45, 62, 80, 0.75)',
     padding: 16,
     justifyContent: 'center',

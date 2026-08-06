@@ -80,8 +80,8 @@ export interface CarCardItem {
 export type TenureSelectorSection = BaseSection<'tenure_selector', TenureSelectorProps>;
 export interface TenureSelectorProps {
   options: number[];
-  selectedBind: string;
-  displayBind: string;
+  selectedBind?: string;
+  displayBind?: string;
   selectedMonths?: number;
   emiValue?: string;
 }

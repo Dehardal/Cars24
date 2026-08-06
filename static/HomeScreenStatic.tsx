@@ -98,7 +98,9 @@ export default function HomeScreenStatic() {
             }}
             onAction={(action) => {
               registerTtiTap();
-              Alert.alert('Static Nav', `Navigating to: ${action.target}`);
+              if (action.type === 'navigate') {
+                Alert.alert('Static Nav', `Navigating to: ${action.target}`);
+              }
             }}
           />
 
@@ -133,7 +135,7 @@ export default function HomeScreenStatic() {
             }}
             onAction={(action) => {
               registerTtiTap();
-              if (action.value) {
+              if (action.type === 'update_state' && action.value) {
                 setSelectedCategory(action.value);
               }
             }}
@@ -152,7 +154,9 @@ export default function HomeScreenStatic() {
           }}
           onAction={(action) => {
             registerTtiTap();
-            Alert.alert('Static Nav', `Selected Car ID: ${action.params?.carId}`);
+            if (action.type === 'navigate') {
+              Alert.alert('Static Nav', `Selected Car ID: ${action.params?.carId}`);
+            }
           }}
         />
 
@@ -168,7 +172,7 @@ export default function HomeScreenStatic() {
           }}
           onAction={(action) => {
             registerTtiTap();
-            if (action.value) {
+            if (action.type === 'update_state' && action.value) {
               setTenureMonths(Number(action.value));
             }
           }}

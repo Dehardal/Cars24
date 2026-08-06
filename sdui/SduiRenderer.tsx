@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { SduiScreen, SduiSection, SduiAction } from '../schema/types';
+import { SduiScreen, SduiSection, SduiAction, ChipGroupProps, TenureSelectorProps } from '../schema/types';
 import { ComponentRegistry } from './registry';
 import { markStart, markEnd } from '../perf/timing';
 
@@ -34,16 +34,16 @@ function resolveProps(section: SduiSection, state: Record<string, any>, computed
   const resolved = { ...section.props };
 
   if (section.type === 'chip_group') {
-    resolved.selectedId = state.selected_category ?? resolved.selectedId;
+    (resolved as ChipGroupProps).selectedId = state.selected_category ?? (section.props as ChipGroupProps).selectedId;
   }
 
   if (section.type === 'tenure_selector') {
     if (section.props.selectedBind === 'state.tenure_months') {
-      resolved.selectedMonths = state.tenure_months;
+      (resolved as TenureSelectorProps).selectedMonths = state.tenure_months;
     }
     if (section.props.displayBind === 'computed.emi') {
       const emi = computed.emi ?? 12450;
-      resolved.emiValue = '₹' + emi.toLocaleString('en-IN');
+      (resolved as TenureSelectorProps).emiValue = '₹' + emi.toLocaleString('en-IN');
     }
   }
 
@@ -59,7 +59,7 @@ export default function SduiRenderer({ screen, state, computed, onAction }: Sdui
       return null;
     }
 
-    const Component = ComponentRegistry[section.type as any];
+    const Component = ComponentRegistry[section.type];
 
     if (!Component) {
       console.warn(`[SDUI Renderer] Warning: Component "${section.type}" not found.`);

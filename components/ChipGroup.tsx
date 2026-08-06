@@ -40,7 +40,7 @@ const ChipGroup = React.memo(({ props, actions, onAction }: ChipGroupComponentPr
       })}
     </ScrollView>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
