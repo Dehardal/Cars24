@@ -4,6 +4,9 @@ import { SduiStateProvider, useSdui } from '../sdui/SduiStateProvider';
 import SduiRenderer from '../sdui/SduiRenderer';
 import { executeSduiAction } from '../sdui/actionEngine';
 import SellCarSheet from './SellCarSheet';
+import CitySelectorSheet from './CitySelectorSheet';
+import SideDrawer from './SideDrawer';
+import SearchSheet from './SearchSheet';
 import { SduiScreen } from '../schema/types';
 import { markStart, markEnd, getPerfLogs, clearPerfLogs } from '../perf/timing';
 
@@ -60,6 +63,23 @@ function HomeScreenContent() {
       
       <SellCarSheet
         visible={!!sheetVisible['sell_car_sheet']}
+        onClose={closeSheet}
+      />
+
+      <CitySelectorSheet
+        visible={!!sheetVisible['city_selector_sheet']}
+        selectedCity={state.location ?? 'Delhi'}
+        onSelectCity={(city) => updateStateKey('location', city)}
+        onClose={closeSheet}
+      />
+
+      <SideDrawer
+        visible={!!sheetVisible['side_menu']}
+        onClose={closeSheet}
+      />
+
+      <SearchSheet
+        visible={!!sheetVisible['search_sheet']}
         onClose={closeSheet}
       />
     </View>

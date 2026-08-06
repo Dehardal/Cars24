@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { SduiScreen, SduiSection, SduiAction, ChipGroupProps, TenureSelectorProps } from '../schema/types';
+import { SduiScreen, SduiSection, SduiAction, ChipGroupProps, TenureSelectorProps, SearchHeaderProps } from '../schema/types';
 import { ComponentRegistry } from './registry';
 import { markStart, markEnd } from '../perf/timing';
+import { Feather } from '@expo/vector-icons';
 
 export const CURRENT_APP_VERSION = 1;
 
@@ -17,7 +18,7 @@ function UnknownComponentFallback({ typeName }: { typeName: string }) {
   return (
     <View style={styles.fallbackContainer}>
       <View style={styles.iconContainer}>
-        <Text style={styles.fallbackIcon}>🧩</Text>
+        <Feather name="package" size={20} color="#2D3E50" />
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.fallbackTitle}>New Content Type ({typeName})</Text>
@@ -32,6 +33,10 @@ function UnknownComponentFallback({ typeName }: { typeName: string }) {
 // Data Binding Resolver: Maps dynamic bindings in props to state/computed values
 function resolveProps(section: SduiSection, state: Record<string, any>, computed: Record<string, any>): Record<string, any> {
   const resolved = { ...section.props };
+
+  if (section.type === 'search_header') {
+    (resolved as SearchHeaderProps).location = state.location ?? (section.props as SearchHeaderProps).location;
+  }
 
   if (section.type === 'chip_group') {
     (resolved as ChipGroupProps).selectedId = state.selected_category ?? (section.props as ChipGroupProps).selectedId;

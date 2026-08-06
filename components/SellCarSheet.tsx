@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Modal, 
   View, 
@@ -7,8 +7,10 @@ import {
   Pressable, 
   TextInput, 
   Alert, 
-  ActivityIndicator 
+  ActivityIndicator,
+  Animated 
 } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 interface SellCarSheetProps {
   visible: boolean;
@@ -18,6 +20,15 @@ interface SellCarSheetProps {
 export default function SellCarSheet({ visible, onClose }: SellCarSheetProps) {
   const [carNumber, setCarNumber] = useState('');
   const [loading, setLoading] = useState(false);
+  const btnScale = useRef(new Animated.Value(1)).current;
+
+  const handleBtnPressIn = () => {
+    Animated.spring(btnScale, { toValue: 0.96, useNativeDriver: true }).start();
+  };
+
+  const handleBtnPressOut = () => {
+    Animated.spring(btnScale, { toValue: 1.0, useNativeDriver: true, friction: 3 }).start();
+  };
 
   const validateCarNumber = (val: string) => {
     const clean = val.replace(/\s+/g, '').toUpperCase();
@@ -60,17 +71,17 @@ export default function SellCarSheet({ visible, onClose }: SellCarSheetProps) {
           
           {/* Close button */}
           <Pressable style={styles.closeBtn} onPress={onClose}>
-            <Text style={styles.closeText}>✕</Text>
+            <Feather name="x" size={16} color="#59413b" />
           </Pressable>
-
+ 
           <View style={styles.content}>
             <Text style={styles.title}>Sell Your Car in Minutes</Text>
             <Text style={styles.subtitle}>Enter registration number to get instant valuation</Text>
-
+ 
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Car Registration Number</Text>
               <View style={styles.inputWrapper}>
-                <Text style={styles.inputIcon}>🚗</Text>
+                <Feather name="credit-card" size={20} color="#8d716a" style={{ marginRight: 4 }} />
                 <TextInput
                   style={styles.input}
                   placeholder="KA 03 MS 1234"
@@ -82,40 +93,47 @@ export default function SellCarSheet({ visible, onClose }: SellCarSheetProps) {
                 />
               </View>
             </View>
-
+ 
             <Pressable 
-              style={[styles.button, loading ? styles.buttonDisabled : null]} 
+              onPressIn={handleBtnPressIn}
+              onPressOut={handleBtnPressOut}
               onPress={handleGetPrice}
               disabled={loading}
+              style={{ width: '100%' }}
             >
-              {loading ? (
-                <ActivityIndicator color="#fff" size="small" />
-              ) : (
-                <Text style={styles.buttonText}>Get Instant Price  ➔</Text>
-              )}
+              <Animated.View style={[styles.button, loading ? styles.buttonDisabled : null, { transform: [{ scale: btnScale }] }]}>
+                {loading ? (
+                  <ActivityIndicator color="#fff" size="small" />
+                ) : (
+                  <View style={styles.btnContent}>
+                    <Text style={styles.buttonText}>Get Instant Price</Text>
+                    <Feather name="arrow-right" size={14} color="#ffffff" style={{ marginLeft: 4 }} />
+                  </View>
+                )}
+              </Animated.View>
             </Pressable>
-
+ 
             <Pressable onPress={() => Alert.alert('Notice', 'Alternative listing options are loading.')}>
               <Text style={styles.helperLink}>Don't know your car number?</Text>
             </Pressable>
-
+ 
             {/* Badges */}
             <View style={styles.badgesRow}>
               <View style={styles.badgeCol}>
                 <View style={styles.badgeCircle}>
-                  <Text style={styles.badgeEmoji}>⚡</Text>
+                  <Feather name="zap" size={15} color="#EF5F3C" />
                 </View>
                 <Text style={styles.badgeLabel}>Instant Quote</Text>
               </View>
               <View style={styles.badgeCol}>
                 <View style={styles.badgeCircle}>
-                  <Text style={styles.badgeEmoji}>🛡️</Text>
+                  <Feather name="shield" size={15} color="#EF5F3C" />
                 </View>
                 <Text style={styles.badgeLabel}>Secure Process</Text>
               </View>
               <View style={styles.badgeCol}>
                 <View style={styles.badgeCircle}>
-                  <Text style={styles.badgeEmoji}>💰</Text>
+                  <Feather name="dollar-sign" size={15} color="#EF5F3C" />
                 </View>
                 <Text style={styles.badgeLabel}>Same Day Pay</Text>
               </View>
@@ -126,7 +144,7 @@ export default function SellCarSheet({ visible, onClose }: SellCarSheetProps) {
     </Modal>
   );
 }
-
+ 
 const styles = StyleSheet.create({
   backdrop: {
     flex: 1,
@@ -160,11 +178,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 10,
-  },
-  closeText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#59413b',
   },
   content: {
     flexDirection: 'column',
@@ -209,9 +222,6 @@ const styles = StyleSheet.create({
     height: 56,
     gap: 12,
   },
-  inputIcon: {
-    fontSize: 18,
-  },
   input: {
     flex: 1,
     fontSize: 18,
@@ -234,6 +244,11 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     opacity: 0.8,
+  },
+  btnContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     fontSize: 14,
@@ -268,9 +283,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(207, 225, 248, 0.4)',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  badgeEmoji: {
-    fontSize: 16,
   },
   badgeLabel: {
     fontSize: 9,

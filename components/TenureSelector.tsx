@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
 import { TenureSelectorProps, SduiAction } from '../schema/types';
+import { Feather } from '@expo/vector-icons';
 
 interface TenureSelectorComponentProps {
   props: TenureSelectorProps;
@@ -9,6 +10,41 @@ interface TenureSelectorComponentProps {
   };
   onAction: (action: SduiAction) => void;
 }
+
+const TenureButton = ({ 
+  months, 
+  isSelected, 
+  onSelect 
+}: { 
+  months: number; 
+  isSelected: boolean; 
+  onSelect: (months: number) => void;
+}) => {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scale, { toValue: 0.94, useNativeDriver: true }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, { toValue: 1.0, useNativeDriver: true, friction: 3 }).start();
+  };
+
+  return (
+    <Pressable
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      onPress={() => onSelect(months)}
+      style={{ flex: 1 }}
+    >
+      <Animated.View style={[styles.btn, isSelected ? styles.selectedBtn : null, { transform: [{ scale }] }]}>
+        <Text style={[styles.btnText, isSelected ? styles.selectedBtnText : null]}>
+          {months}m
+        </Text>
+      </Animated.View>
+    </Pressable>
+  );
+};
 
 const TenureSelector = React.memo(({ props, actions, onAction }: TenureSelectorComponentProps) => {
   const selectedMonths = props.selectedMonths ?? 36;
@@ -27,7 +63,10 @@ const TenureSelector = React.memo(({ props, actions, onAction }: TenureSelectorC
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.sub}>EMI Planner</Text>
+          <View style={styles.subRow}>
+            <Feather name="calendar" size={10} color="#8d716a" style={{ marginRight: 3 }} />
+            <Text style={styles.sub}>EMI Planner</Text>
+          </View>
           <Text style={styles.title}>Customize Tenure</Text>
         </View>
         <Text style={styles.emi}>
@@ -36,20 +75,14 @@ const TenureSelector = React.memo(({ props, actions, onAction }: TenureSelectorC
         </Text>
       </View>
       <View style={styles.optionsRow}>
-        {props.options.map(months => {
-          const isSelected = months === selectedMonths;
-          return (
-            <Pressable
-              key={months}
-              style={[styles.btn, isSelected ? styles.selectedBtn : null]}
-              onPress={() => handleSelect(months)}
-            >
-              <Text style={[styles.btnText, isSelected ? styles.selectedBtnText : null]}>
-                {months}m
-              </Text>
-            </Pressable>
-          );
-        })}
+        {props.options.map(months => (
+          <TenureButton
+            key={months}
+            months={months}
+            isSelected={months === selectedMonths}
+            onSelect={handleSelect}
+          />
+        ))}
       </View>
     </View>
   );
@@ -75,6 +108,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginBottom: 16,
+  },
+  subRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   sub: {
     fontSize: 10,
@@ -104,7 +141,6 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   btn: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 8,
@@ -112,6 +148,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e1e2e4',
     backgroundColor: '#ffffff',
+    width: '100%',
   },
   selectedBtn: {
     borderColor: '#EF5F3C',

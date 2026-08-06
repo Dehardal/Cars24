@@ -44,6 +44,8 @@ export interface CarouselProps {
 }
 export interface CarouselItem {
   imageUrl: string;
+  title?: string;
+  subtitle?: string;
   actions?: {
     onTap?: SduiAction;
     [key: string]: SduiAction | undefined;

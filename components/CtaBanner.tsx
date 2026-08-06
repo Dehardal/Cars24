@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
 import { CtaBannerProps, SduiAction } from '../schema/types';
+import { Feather } from '@expo/vector-icons';
 
 interface CtaBannerComponentProps {
   props: CtaBannerProps;
@@ -10,6 +11,39 @@ interface CtaBannerComponentProps {
   onAction: (action: SduiAction) => void;
 }
 
+const CtaBannerButton = ({ 
+  label, 
+  actions, 
+  onAction 
+}: { 
+  label: string; 
+  actions: any; 
+  onAction: (action: SduiAction) => void;
+}) => {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scale, { toValue: 0.95, useNativeDriver: true }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, { toValue: 1.0, useNativeDriver: true, friction: 3 }).start();
+  };
+
+  return (
+    <Pressable
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      onPress={() => actions?.onTap && onAction(actions.onTap)}
+    >
+      <Animated.View style={[styles.button, { transform: [{ scale }] }]}>
+        <Text style={styles.buttonText}>{label}</Text>
+        <Feather name="arrow-right" size={12} color="#ffffff" style={{ marginLeft: 4 }} />
+      </Animated.View>
+    </Pressable>
+  );
+};
+
 export default function CtaBanner({ props, actions, onAction }: CtaBannerComponentProps) {
   return (
     <View style={styles.container}>
@@ -17,12 +51,7 @@ export default function CtaBanner({ props, actions, onAction }: CtaBannerCompone
         <Text style={styles.title}>{props.title}</Text>
         <Text style={styles.subtitle}>Get best price instantly</Text>
       </View>
-      <Pressable
-        style={styles.button}
-        onPress={() => actions?.onTap && onAction(actions.onTap)}
-      >
-        <Text style={styles.buttonText}>{props.ctaLabel}</Text>
-      </Pressable>
+      <CtaBannerButton label={props.ctaLabel} actions={actions} onAction={onAction} />
     </View>
   );
 }
@@ -56,13 +85,14 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 11,
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: 'rgba(255, 255, 255, 0.85)',
   },
   button: {
     backgroundColor: '#EF5F3C',
-    paddingHorizontal: 16,
+    paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 8,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },

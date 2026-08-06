@@ -1,35 +1,57 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
 import { SearchHeaderProps, SduiAction } from '../schema/types';
+import { Feather } from '@expo/vector-icons';
 
 interface SearchHeaderComponentProps {
   props: SearchHeaderProps;
   actions?: {
     onTap?: SduiAction;
+    onLocationTap?: SduiAction;
+    onMenuTap?: SduiAction;
   };
   onAction: (action: SduiAction) => void;
 }
 
 const SearchHeader = React.memo(({ props, actions, onAction }: SearchHeaderComponentProps) => {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scale, { toValue: 0.97, useNativeDriver: true }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, { toValue: 1.0, useNativeDriver: true, friction: 3 }).start();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
-        <View style={styles.menuWrapper}>
-          <Text style={styles.menuIcon}>☰</Text>
-        </View>
-        <View style={styles.locationChip}>
-          <Text style={styles.locationPin}>📍</Text>
+        <Pressable 
+          style={styles.menuWrapper}
+          onPress={() => actions?.onMenuTap && onAction(actions.onMenuTap)}
+        >
+          <Feather name="menu" size={22} color="#EF5F3C" />
+        </Pressable>
+        <Pressable 
+          style={styles.locationChip}
+          onPress={() => actions?.onLocationTap && onAction(actions.onLocationTap)}
+        >
+          <Feather name="map-pin" size={12} color="#EF5F3C" />
           <Text style={styles.locationText}>{props.location}</Text>
-          <Text style={styles.locationArrow}>▼</Text>
-        </View>
+          <Feather name="chevron-down" size={10} color="#2D3E50" style={{ marginLeft: 2 }} />
+        </Pressable>
         <Text style={styles.brandTitle}>Cars24</Text>
       </View>
       <Pressable 
-        style={styles.searchBar} 
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
         onPress={() => actions?.onTap && onAction(actions.onTap)}
       >
-        <Text style={styles.searchIcon}>🔍</Text>
-        <Text style={styles.searchText}>{props.placeholder}</Text>
+        <Animated.View style={[styles.searchBar, { transform: [{ scale }] }]}>
+          <Feather name="search" size={14} color="#8d716a" />
+          <Text style={styles.searchText}>{props.placeholder}</Text>
+        </Animated.View>
       </Pressable>
     </View>
   );

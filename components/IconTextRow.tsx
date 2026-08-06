@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { IconTextRowProps } from '../schema/types';
+import { Feather } from '@expo/vector-icons';
 
 interface IconTextRowComponentProps {
   props: IconTextRowProps;
@@ -13,9 +14,11 @@ export default function IconTextRow({ props }: IconTextRowComponentProps) {
         <React.Fragment key={idx}>
           {idx > 0 && <View style={styles.divider} />}
           <View style={styles.item}>
-            <Text style={styles.icon}>
-              {item.icon === 'shield' ? '🛡️' : '🔄'}
-            </Text>
+            {item.icon === 'shield' ? (
+              <Feather name="shield" size={16} color="#00B67A" />
+            ) : (
+              <Feather name="refresh-cw" size={15} color="#EF5F3C" />
+            )}
             <Text style={styles.label}>{item.label}</Text>
           </View>
         </React.Fragment>
@@ -42,10 +45,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-  },
-  icon: {
-    fontSize: 16,
-    color: '#EF5F3C',
   },
   label: {
     fontSize: 11,

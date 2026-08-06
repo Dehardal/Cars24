@@ -1,5 +1,5 @@
-import React from 'react';
-import { ScrollView, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useRef } from 'react';
+import { ScrollView, Text, StyleSheet, Pressable, Animated } from 'react-native';
 import { ChipGroupProps, SduiAction } from '../schema/types';
 
 interface ChipGroupComponentProps {
@@ -10,6 +10,49 @@ interface ChipGroupComponentProps {
   onAction: (action: SduiAction) => void;
 }
 
+const ChipItem = ({ 
+  option, 
+  isSelected, 
+  actions, 
+  onAction 
+}: { 
+  option: any; 
+  isSelected: boolean; 
+  actions: any; 
+  onAction: (action: SduiAction) => void;
+}) => {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scale, { toValue: 0.94, useNativeDriver: true }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, { toValue: 1.0, useNativeDriver: true, friction: 3 }).start();
+  };
+
+  return (
+    <Pressable
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      onPress={() => {
+        if (actions?.onSelect) {
+          onAction({
+            ...actions.onSelect,
+            value: option.id,
+          } as any);
+        }
+      }}
+    >
+      <Animated.View style={[styles.chip, isSelected ? styles.selectedChip : null, { transform: [{ scale }] }]}>
+        <Text style={[styles.chipText, isSelected ? styles.selectedText : null]}>
+          {option.label}
+        </Text>
+      </Animated.View>
+    </Pressable>
+  );
+};
+
 const ChipGroup = React.memo(({ props, actions, onAction }: ChipGroupComponentProps) => {
   return (
     <ScrollView
@@ -17,27 +60,15 @@ const ChipGroup = React.memo(({ props, actions, onAction }: ChipGroupComponentPr
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.container}
     >
-      {props.options.map(option => {
-        const isSelected = option.id === props.selectedId;
-        return (
-          <Pressable
-            key={option.id}
-            style={[styles.chip, isSelected ? styles.selectedChip : null]}
-            onPress={() => {
-              if (actions?.onSelect) {
-                onAction({
-                  ...actions.onSelect,
-                  value: option.id,
-                } as any);
-              }
-            }}
-          >
-            <Text style={[styles.chipText, isSelected ? styles.selectedText : null]}>
-              {option.label}
-            </Text>
-          </Pressable>
-        );
-      })}
+      {props.options.map(option => (
+        <ChipItem
+          key={option.id}
+          option={option}
+          isSelected={option.id === props.selectedId}
+          actions={actions}
+          onAction={onAction}
+        />
+      ))}
     </ScrollView>
   );
 });

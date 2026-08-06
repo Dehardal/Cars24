@@ -8,6 +8,9 @@ import TenureSelector from '../components/TenureSelector';
 import IconTextRow from '../components/IconTextRow';
 import CtaBanner from '../components/CtaBanner';
 import SellCarSheet from '../components/SellCarSheet';
+import CitySelectorSheet from '../components/CitySelectorSheet';
+import SideDrawer from '../components/SideDrawer';
+import SearchSheet from '../components/SearchSheet';
 import { calculateEmiAmortization } from '../sdui/computed';
 import { markStart, markEnd, getPerfLogs, clearPerfLogs } from '../perf/timing';
 
@@ -37,6 +40,10 @@ export default function HomeScreenStatic() {
   const [selectedCategory, setSelectedCategory] = useState('hatchback');
   const [tenureMonths, setTenureMonths] = useState(24);
   const [sheetVisible, setSheetVisible] = useState(false);
+  const [location, setLocation] = useState('Delhi');
+  const [cityModalVisible, setCityModalVisible] = useState(false);
+  const [sideMenuVisible, setSideMenuVisible] = useState(false);
+  const [searchSheetVisible, setSearchSheetVisible] = useState(false);
   // Initialize and mark start timers on component mount
   useEffect(() => {
     markStart('static-above-the-fold-TTR');
@@ -69,14 +76,24 @@ export default function HomeScreenStatic() {
           <SearchHeader
             props={{
               placeholder: 'Search by brand, model or budget',
-              location: 'Delhi',
+              location: location,
             }}
             actions={{
               onTap: { type: 'navigate', target: 'search_screen' },
+              onLocationTap: { type: 'open_sheet', sheetId: 'city_selector_sheet' },
+              onMenuTap: { type: 'open_sheet', sheetId: 'side_menu' },
             }}
             onAction={(action) => {
               if (action.type === 'navigate') {
                 Alert.alert('Static Nav', `Navigating to: ${action.target}`);
+              } else if (action.type === 'open_sheet') {
+                if (action.sheetId === 'city_selector_sheet') {
+                  setCityModalVisible(true);
+                } else if (action.sheetId === 'side_menu') {
+                  setSideMenuVisible(true);
+                } else if (action.sheetId === 'search_sheet') {
+                  setSearchSheetVisible(true);
+                }
               }
             }}
           />
@@ -88,6 +105,18 @@ export default function HomeScreenStatic() {
               items: [
                 {
                   imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC3Be6njH2Mp-7_rjingXEYQUGofpqTvQrst7xanUJKb2DAD5B-WioAK0nTgbwavSM3EjAH8gDaLwIgT_F0AARdIBJRo2yLUwhL8dNu8bov2-nnrPCWIxZ0ZC1gG60ic2Yy2UnPr3xNjNy13rLmWQdv515vBlamtMp0tQCm6NOgVBU4bVzwdwI0LphtRNnVjl0vmTvwJe6wQnDnfciBwACsjdZS4L3jUaVFA_RWAnp1LVyS4sX9ObWLbg',
+                  title: 'Exchange Bonus',
+                  subtitle: 'Get up to ₹50,000 extra value',
+                },
+                {
+                  imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAd2_FvObtq6L_CoT4pwP8TC9bZBlKhpiMLzVrMIdza7zBz1ujh4gGJGBgtc8tQgdCEynVnnn1N3JIQApXyBORqC_KM9CUacmr_NuzsF1Y3QRUcFfd0NGTk0jUSRhLdXAcJ4HiKEQwnrcCZVJhqDvJn-7qO9mCCSIUedYjnbS9RV8q781geTK3h-FZqcJ0-VM6OAeUSDGWItCoIGs-6QlSDsWntg_gvEyEG8YZkNgWmA87BMTv2YKFDjQ',
+                  title: 'Zero Downpayment',
+                  subtitle: 'Drive home today with instant approvals',
+                },
+                {
+                  imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAnQ3vjz6AjCgstDroHpWA16V6tvyCjkjn9IgOROkOtny8E-DNGe-9dB4dZi18Jqs7ZV-MiulGDZR6bgRIFv_raoWCoy8aapPs-qvT9eDMdkA4sli2VmmXpzri7wK00CQKgE3jdFBBz-HbF7Ux0x68UhzpebpZLKt3UyJ7nfsB8wbRRfFZEEu90iCsBm_VyWaKxQXXyyQp5t0MpizNqJDyXXYeR99wVHuECTDoDF6FLLSQ3Gqa7EQePpg',
+                  title: 'Free Warranty',
+                  subtitle: '1 Year comprehensive coverage',
                 },
               ],
             }}
@@ -178,6 +207,23 @@ export default function HomeScreenStatic() {
         <SellCarSheet
           visible={sheetVisible}
           onClose={() => setSheetVisible(false)}
+        />
+
+        <CitySelectorSheet
+          visible={cityModalVisible}
+          selectedCity={location}
+          onSelectCity={setLocation}
+          onClose={() => setCityModalVisible(false)}
+        />
+
+        <SideDrawer
+          visible={sideMenuVisible}
+          onClose={() => setSideMenuVisible(false)}
+        />
+
+        <SearchSheet
+          visible={searchSheetVisible}
+          onClose={() => setSearchSheetVisible(false)}
         />
       </ScrollView>
     </View>
