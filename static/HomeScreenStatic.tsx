@@ -37,23 +37,11 @@ export default function HomeScreenStatic() {
   const [selectedCategory, setSelectedCategory] = useState('hatchback');
   const [tenureMonths, setTenureMonths] = useState(24);
   const [sheetVisible, setSheetVisible] = useState(false);
-  const [showDebug, setShowDebug] = useState(false);
-  const [debugLogs, setDebugLogs] = useState<string[]>([]);
-  const ttiRegistered = useRef(false);
-
   // Initialize and mark start timers on component mount
   useEffect(() => {
     markStart('static-above-the-fold-TTR');
     markStart('static-full-page');
   }, []);
-
-  const registerTtiTap = () => {
-    if (!ttiRegistered.current) {
-      ttiRegistered.current = true;
-      markEnd('static-cold-open'); // Represents TTI completion from compile to tap
-      console.log('[Perf Timing] Static Screen TTI registered.');
-    }
-  };
 
   const emi = calculateEmiAmortization(500000, 9.5, tenureMonths);
   const formattedEmi = '₹' + emi.toLocaleString('en-IN');
@@ -61,16 +49,6 @@ export default function HomeScreenStatic() {
   const filteredCars = CARS_DATABASE.filter(
     car => car.category === selectedCategory
   );
-
-  const openDebugPanel = () => {
-    setDebugLogs(getPerfLogs());
-    setShowDebug(true);
-  };
-
-  const handleResetLogs = () => {
-    clearPerfLogs();
-    setDebugLogs([]);
-  };
 
   return (
     <View style={styles.outerContainer}>
@@ -97,7 +75,6 @@ export default function HomeScreenStatic() {
               onTap: { type: 'navigate', target: 'search_screen' },
             }}
             onAction={(action) => {
-              registerTtiTap();
               if (action.type === 'navigate') {
                 Alert.alert('Static Nav', `Navigating to: ${action.target}`);
               }
@@ -115,7 +92,6 @@ export default function HomeScreenStatic() {
               ],
             }}
             onAction={() => {
-              registerTtiTap();
               Alert.alert('Static Action', 'Carousel tap');
             }}
           />
@@ -134,7 +110,6 @@ export default function HomeScreenStatic() {
               onSelect: { type: 'update_state', stateKey: 'selected_category' },
             }}
             onAction={(action) => {
-              registerTtiTap();
               if (action.type === 'update_state' && action.value) {
                 setSelectedCategory(action.value);
               }
@@ -153,7 +128,6 @@ export default function HomeScreenStatic() {
             onItemTap: { type: 'navigate', target: 'car_details', paramsFromItem: ['carId'] },
           }}
           onAction={(action) => {
-            registerTtiTap();
             if (action.type === 'navigate') {
               Alert.alert('Static Nav', `Selected Car ID: ${action.params?.carId}`);
             }
@@ -171,7 +145,6 @@ export default function HomeScreenStatic() {
             onSelect: { type: 'update_state', stateKey: 'tenure_months' },
           }}
           onAction={(action) => {
-            registerTtiTap();
             if (action.type === 'update_state' && action.value) {
               setTenureMonths(Number(action.value));
             }
@@ -198,7 +171,6 @@ export default function HomeScreenStatic() {
             onTap: { type: 'open_sheet', sheetId: 'sell_car_sheet' },
           }}
           onAction={() => {
-            registerTtiTap();
             setSheetVisible(true);
           }}
         />
@@ -208,39 +180,6 @@ export default function HomeScreenStatic() {
           onClose={() => setSheetVisible(false)}
         />
       </ScrollView>
-
-      {/* Floating Performance Logs button */}
-      <Pressable style={styles.floatingBtn} onPress={openDebugPanel}>
-        <Text style={styles.floatingText}>⏱️ Perf Logs</Text>
-      </Pressable>
-
-      {/* Debug Menu modal sheet */}
-      <Modal visible={showDebug} transparent animationType="fade">
-        <View style={styles.debugBackdrop}>
-          <View style={styles.debugDialog}>
-            <Text style={styles.debugTitle}>Static Screen Performance Mappings</Text>
-            <ScrollView style={styles.debugScroll}>
-              {debugLogs.length === 0 ? (
-                <Text style={styles.emptyLogs}>No measurements loaded yet. Interact with the screen first.</Text>
-              ) : (
-                debugLogs.map((log, idx) => (
-                  <Text key={idx} style={styles.logText}>
-                    {log}
-                  </Text>
-                ))
-              )}
-            </ScrollView>
-            <View style={styles.debugActions}>
-              <Pressable style={styles.resetBtn} onPress={handleResetLogs}>
-                <Text style={styles.resetText}>Reset Logs</Text>
-              </Pressable>
-              <Pressable style={styles.closeBtn} onPress={() => setShowDebug(false)}>
-                <Text style={styles.closeText}>Close</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 }
@@ -260,95 +199,5 @@ const styles = StyleSheet.create({
   },
   aboveFoldWrapper: {
     width: '100%',
-  },
-  floatingBtn: {
-    position: 'absolute',
-    bottom: 24,
-    right: 16,
-    backgroundColor: '#2D3E50',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 20,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    zIndex: 999,
-  },
-  floatingText: {
-    color: '#ffffff',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  debugBackdrop: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
-  },
-  debugDialog: {
-    width: '100%',
-    maxHeight: '80%',
-    backgroundColor: '#ffffff',
-    borderRadius: 16,
-    padding: 20,
-    flexDirection: 'column',
-  },
-  debugTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#2D3E50',
-    marginBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#edeef0',
-    paddingBottom: 8,
-  },
-  debugScroll: {
-    flex: 1,
-    marginVertical: 8,
-  },
-  emptyLogs: {
-    fontSize: 12,
-    color: '#8d716a',
-    fontStyle: 'italic',
-    textAlign: 'center',
-    marginTop: 20,
-  },
-  logText: {
-    fontSize: 11,
-    color: '#191c1e',
-    marginVertical: 2,
-    lineHeight: 16,
-  },
-  debugActions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: 12,
-    marginTop: 16,
-  },
-  resetBtn: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e1e2e4',
-  },
-  resetText: {
-    fontSize: 12,
-    color: '#2D3E50',
-    fontWeight: '600',
-  },
-  closeBtn: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 8,
-    backgroundColor: '#EF5F3C',
-  },
-  closeText: {
-    fontSize: 12,
-    color: '#ffffff',
-    fontWeight: 'bold',
   },
 });
